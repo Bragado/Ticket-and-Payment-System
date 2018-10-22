@@ -1,10 +1,12 @@
-package cmov.miguellucas.com.cafeteriaterminal;
+package logic;
+
+import java.io.Serializable;
 
 /**
  * Created by Miguel Lucas on 21/10/2018.
  */
 
-public class Product {
+public class Product implements Serializable {
     private String name;
     private double price;
     private int sales;
@@ -37,5 +39,19 @@ public class Product {
 
     public void setSales(int sales) {
         this.sales = sales;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == null)
+            return false;
+        if (other == this)
+            return true;
+        if (!(other instanceof Product))
+            return false;
+
+        Product otherProduct = (Product) other;
+
+        return otherProduct.getName().equals(this.getName());
     }
 }

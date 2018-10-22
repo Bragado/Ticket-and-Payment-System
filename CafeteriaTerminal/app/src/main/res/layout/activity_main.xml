@@ -28,7 +28,7 @@
         android:textSize="18sp" />
 
     <Button
-        android:id="@+id/btn_client_list"
+        android:id="@+id/btn_order_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/center"
@@ -36,8 +36,8 @@
         android:layout_marginTop="10dp"
         android:paddingLeft="50dp"
         android:paddingRight="50dp"
-        android:text="@string/btn_client_list"
+        android:text="@string/btn_order_list"
         android:textSize="18sp"
-        android:onClick="btnClientListClick" />
+        android:onClick="btnOrderListClick" />
 
 </RelativeLayout>

@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">CafeteriaTerminal</string>
-    <string name="btn_client_list">Client List</string>
+    <string name="btn_order_list">Order List</string>
     <string name="btn_read_order">Read Order</string>
 </resources>

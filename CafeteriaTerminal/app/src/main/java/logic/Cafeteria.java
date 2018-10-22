@@ -1,12 +1,13 @@
-package cmov.miguellucas.com.cafeteriaterminal;
+package logic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Miguel Lucas on 21/10/2018.
  */
 
-public class Cafeteria {
+public class Cafeteria implements Serializable {
     private ArrayList<Product> products;
     private ArrayList<Order> orders;
 
@@ -42,5 +43,9 @@ public class Cafeteria {
         products.add(soda);
         products.add(popcorn);
         products.add(sandwich);
+    }
+
+    public void addOrder(Order order) {
+        orders.add(order);
     }
 }
