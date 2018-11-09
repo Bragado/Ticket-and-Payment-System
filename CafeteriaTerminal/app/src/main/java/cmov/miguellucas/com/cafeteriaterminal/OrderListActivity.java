@@ -67,7 +67,6 @@ public class OrderListActivity extends AppCompatActivity implements ListView.OnI
 
             ImageView icon = row.findViewById(R.id.icon);
 
-            Log.d("TESTE", order.getType().toString());
             switch (order.getType()){
                 case COFFEE:
                     icon.setImageResource(R.drawable.coffee);
