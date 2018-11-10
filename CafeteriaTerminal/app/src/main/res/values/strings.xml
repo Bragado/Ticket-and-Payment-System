@@ -7,4 +7,5 @@
     <string name="order_served">The order is served</string>
     <string name="order_not_served">The order is NOT served</string>
     <string name="btn_order_status">Serve</string>
+    <string name="btn_go_back">Go Back</string>
 </resources>

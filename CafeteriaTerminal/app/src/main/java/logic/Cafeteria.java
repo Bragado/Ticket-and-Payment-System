@@ -3,15 +3,18 @@ package logic;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-/**
- * Created by Miguel Lucas on 21/10/2018.
- */
-
 public class Cafeteria implements Serializable {
+    //Singleton instance
+    private static final Cafeteria instance = new Cafeteria();
+    public static Cafeteria getInstance() {
+        return instance;
+    }
+
     private ArrayList<Product> products;
     private ArrayList<Order> orders;
 
-    public Cafeteria() {
+
+    private Cafeteria() {
         products = new ArrayList<>();
         orders = new ArrayList<>();
         startCafeteria();

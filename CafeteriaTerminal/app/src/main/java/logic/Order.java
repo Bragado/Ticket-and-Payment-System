@@ -3,21 +3,33 @@ package logic;
 import java.io.Serializable;
 import java.util.HashMap;
 
-/**
- * Created by Miguel Lucas on 21/10/2018.
- */
-
 public class Order implements Serializable{
+
+
     //product - number of items ordered
+    private int id;
     private HashMap<Product, Integer> products;
     private float price;
     private int client_id;
     private boolean orderServed;
 
-    public Order(int client_id){
+    public Order(int id, int client_id){
+        this.id = id;
         this.client_id = client_id;
         products = new HashMap<>();
         setOrderServed(false);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public boolean isOrderServed() {
+        return orderServed;
     }
 
     public HashMap<Product, Integer> getProducts() {
@@ -101,8 +113,27 @@ public class Order implements Serializable{
             res += pair.getValue() + " " + pair.getKey().getName();
         }
 
+        /*res += " / ";
+        if (orderServed)
+            res += "Served";
+        else
+            res += "NOT Served";
+        */
+
         return res;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == null)
+            return false;
+        if (other == this)
+            return true;
+        if (!(other instanceof Order))
+            return false;
 
+        Order otherOrder = (Order) other;
+
+        return otherOrder.getId() == this.getId();
+    }
 }
