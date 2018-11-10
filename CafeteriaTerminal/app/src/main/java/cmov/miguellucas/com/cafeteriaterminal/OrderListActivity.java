@@ -1,5 +1,6 @@
 package cmov.miguellucas.com.cafeteriaterminal;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,7 +19,7 @@ import logic.Cafeteria;
 import logic.Order;
 
 public class OrderListActivity extends AppCompatActivity implements ListView.OnItemClickListener {
-
+    public final static String ID_EXTRA = "org.proj1.cafeteriaTerminal.order";
     private Cafeteria cafeteria;
 
     @Override
@@ -37,7 +38,10 @@ public class OrderListActivity extends AppCompatActivity implements ListView.OnI
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int pos, long id) {
-        Toast.makeText(this, "dsfaf", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "dsfaf", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(this, OrderActivity.class);
+        i.putExtra(ID_EXTRA, cafeteria.getOrders().get(pos));
+        startActivityForResult(i);
     }
 
     class OrderAdapter extends ArrayAdapter<Order> {
@@ -67,7 +71,6 @@ public class OrderListActivity extends AppCompatActivity implements ListView.OnI
 
             ImageView icon = row.findViewById(R.id.icon);
 
-            Log.d("TESTE", order.getType().toString());
             switch (order.getType()){
                 case COFFEE:
                     icon.setImageResource(R.drawable.coffee);

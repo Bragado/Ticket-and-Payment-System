@@ -2,4 +2,9 @@
     <string name="app_name">CafeteriaTerminal</string>
     <string name="btn_order_list">Order List</string>
     <string name="btn_read_order">Read Order</string>
+    <string name="order_client_info_title">Client Information</string>
+    <string name="order_client_nif">NIF:</string>
+    <string name="order_served">The order is served</string>
+    <string name="order_not_served">The order is NOT served</string>
+    <string name="btn_order_status">Serve</string>
 </resources>
