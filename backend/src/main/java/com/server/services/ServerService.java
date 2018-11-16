@@ -1,32 +1,34 @@
 package com.server.services;
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.server.utilis.CafeteriaOrderAnswer;
+import com.server.utilis.Costumer;
+import com.server.utilis.Voucher;
  
 
 public interface ServerService {
 	
-	/*public Session login(String username, String password, String addr) throws SQLException, NoSuchAlgorithmException;
+	 
 	
-	String getUsernameFromSession(String userToken) throws SQLException;
+	public String Register(String name, String username, String password, String publicKey, int NIF) throws SQLException; 
 	
-	int getUserIDFromSesion(String userToken) throws SQLException;
+	public boolean AddCreditCard(String UUID, int Type, String Number, java.util.Date  experationDate) throws SQLException;
+
+	public boolean createEvent(String filename, java.util.Date date, String title, String description, String capacity,  String ticketPrice) throws SQLException;
 	
-	public boolean logout(String userToken, String string);
-	
-	public JSONArray searchFile(String query, String type, String ln1, String ln2) throws SQLException;
-	public JSONArray searchUserFiles(String user) throws SQLException;
-	
-	boolean validate(String userCode);
-	
-	public boolean uploadFile(String Filename, String MimeType, int Length, int userID) throws SQLException;
-	
-	public  byte[] getPublicKeyFromUsername(String parameter) throws SQLException ;
-	
-	public byte[] getPublicKeyFromID(int id2) throws SQLException;*/
-	
-	public String Register(String name, String username, String password, String publicKey, int NIF); 
-	
-	
+	public JSONObject getAvailableEvents() throws SQLException, JSONException;
+
+	public JSONObject sellClientTickets(String eventID, String userID, String amount) throws SQLException, JSONException;
+
+	public boolean valideTicket(String ticketID, String userID, String eventID) throws SQLException ;
+
+	public Costumer getUserInfo(String id) throws SQLException;
+
+	public CafeteriaOrderAnswer registerCafeteriaOrder(String userID, JSONArray products, JSONArray vouchers  ) throws Exception;
+
+	public String[] getVouchersName(Voucher[] vouchersAccepted) throws SQLException;
 }
