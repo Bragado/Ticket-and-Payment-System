@@ -12,12 +12,16 @@ public class Order implements Serializable{
     private float price;
     private int client_id;
     private boolean orderServed;
+    private Voucher voucher1;
+    private Voucher voucher2;
 
     public Order(int id, int client_id){
         this.id = id;
         this.client_id = client_id;
         products = new HashMap<>();
         setOrderServed(false);
+        voucher1 = null;
+        voucher2 = null;
     }
 
     public int getId() {
@@ -62,6 +66,22 @@ public class Order implements Serializable{
 
     public void setOrderServed(boolean orderServed) {
         this.orderServed = orderServed;
+    }
+
+    public Voucher getVoucher1() {
+        return voucher1;
+    }
+
+    public void setVoucher1(Voucher voucher1) {
+        this.voucher1 = voucher1;
+    }
+
+    public Voucher getVoucher2() {
+        return voucher2;
+    }
+
+    public void setVoucher2(Voucher voucher2) {
+        this.voucher2 = voucher2;
     }
 
     public void addProduct(Product product) {
