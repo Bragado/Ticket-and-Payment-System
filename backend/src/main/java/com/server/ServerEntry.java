@@ -1,11 +1,9 @@
 package com.server;
 
-import java.io.FileNotFoundException;
-
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
- 
+import org.eclipse.jetty.servlet.ServletHolder; 
 import com.server.services.DBService;
 
 public class ServerEntry {
@@ -15,11 +13,12 @@ public class ServerEntry {
 	public static final String SELL_TICKET_PATH = "/sell_ticket";
 	public static final String ADD_EVENT = "/add_event";
 	public static final String ADD_CREDIT_CARD = "/add_credit_card";
-	public static final String VALIDATE_TICKET = "/validate_ticket";
-	public static final String EMIT_VOUCHER = "/getVoucher";
+	public static final String VALIDATE_TICKET = "/validate_ticket"; 
 	public static final String VALIDATE_VOUCHER = "/validate_voucher";
 	public static final String GET_TRANSACTIONS = "/getTrasanctions";
-	
+	private static final String GET_EVENTS = "/listEvents";
+	private static final String GET_IMAGE_EVENT = "/getEventImage";
+	private static final String CLIENT_INFO = "/clientInfo";
 	
 	// TODO: redefine variables values:
 	public static final String KEYSTORE_PATH = "";
@@ -34,11 +33,14 @@ public class ServerEntry {
     
     public static final Integer Port = 7074;	// should be initialize with the parameters
 	
+	
+	
 	public static void main(String[] args) throws Exception {
 
 		Server server = new Server(Port);				 
+		
 		DBService database = new DBService();
-		initializeDataBase(database);
+		//initializeDataBase(database);
 		
 		startHandlers(server, database);
 		server.start();
@@ -56,65 +58,24 @@ public class ServerEntry {
 		
 		handler.addServlet(new ServletHolder(new com.server.handlers.Register(database)), REGISTER_PATH);
 		handler.addServlet(new ServletHolder(new com.server.handlers.SellTicket(database)), SELL_TICKET_PATH);
-		handler.addServlet(new ServletHolder(new com.server.handlers.AddEvent(database)), ADD_EVENT);
-		handler.addServlet(new ServletHolder(new com.server.handlers.EmitVoucher(database)), EMIT_VOUCHER);
+		handler.addServlet(new ServletHolder(new com.server.handlers.AddEvent(database)), ADD_EVENT); 
 		handler.addServlet(new ServletHolder(new com.server.handlers.GetTransactions(database)), GET_TRANSACTIONS);
-		handler.addServlet(new ServletHolder(new com.server.handlers.ValidateVoucher(database)),VALIDATE_VOUCHER);
+		handler.addServlet(new ServletHolder(new com.server.handlers.ValidateVoucherNOrder(database)),VALIDATE_VOUCHER);
 		handler.addServlet(new ServletHolder(new com.server.handlers.AddCreditCard(database)), ADD_CREDIT_CARD);
-		//handler.addServlet(new ServletHolder(), pathSpec);
-		//handler.addServlet(new ServletHolder(), pathSpec);
+		handler.addServlet(new ServletHolder(new com.server.handlers.GetEvents(database)), GET_EVENTS);
+		handler.addServlet(new ServletHolder(new com.server.handlers.GetImage(database)), GET_IMAGE_EVENT);
+		handler.addServlet(new ServletHolder(new com.server.handlers.ValidateTicket(database)), VALIDATE_TICKET);
+		handler.addServlet(new ServletHolder(new com.server.handlers.ClientInfo(database)), CLIENT_INFO); 
 		
-		 
+	/*	FilterHolder holder = new FilterHolder(new CrossOriginFilter());
+        holder.setInitParameter(CrossOriginFilter.ALLOWED_ORIGINS_PARAM, ALLOWED_ORIGINS);
+        holder.setInitParameter(CrossOriginFilter.ALLOWED_METHODS_PARAM, ALLOWED_METHODS);
+        handler.addFilter(holder, PATH_SPEC, EnumSet.of(DispatcherType.REQUEST));*/
+		
 		return true;
 	}
 	
-	public static boolean initializeSLL(Server server) throws FileNotFoundException{
-		/*File file = new File(KEYSTORE_PATH);
-        if(!file.exists())
-        {
-            throw new FileNotFoundException(file.getAbsolutePath());
-        }
-
-        String path = file.getAbsolutePath();
-
-        // HTTP Configuration
-        HttpConfiguration http_config = new HttpConfiguration();
-        http_config.setSecureScheme(HTTPS);
-        http_config.setSecurePort(Port);
-        http_config.setOutputBufferSize(OUTPUT_BUFFER_SIZE);
-        http_config.setRequestHeaderSize(REQUEST_HEADER_SIZE);
-        http_config.setResponseHeaderSize(RESPONSE_HEADER_SIZE);
-        http_config.setSendServerVersion(true);
-        http_config.setSendDateHeader(false);
-
-        HttpConfiguration ssl_config = new HttpConfiguration(http_config);
-        ssl_config.addCustomizer(new SecureRequestCustomizer(true));
-
-        // SSL Context Factory
-        SslContextFactory sslContextFactory = new SslContextFactory();
-        sslContextFactory.setKeyStorePath(path);
-        sslContextFactory.setKeyStorePassword(KEYSTORE_PASSWORD);
-        sslContextFactory.setKeyManagerPassword(KEY_MANAGER_PASSWORD);
-        sslContextFactory.setTrustStorePath(path);
-        sslContextFactory.setTrustStorePassword(TRUSTSTORE_PASSWORD);
-        sslContextFactory.setIncludeCipherSuites(CYPHER_SUITS_1, CYPHER_SUITS_2, CYPHER_SUITS_3);
-
-        // SSL HTTP Configuration
-        HttpConfiguration https_config = new HttpConfiguration(http_config);
-        https_config.addCustomizer(new SecureRequestCustomizer());
-
-        // SSL Connector
-        ServerConnector sslConnector = new ServerConnector(server,
-                new SslConnectionFactory(sslContextFactory, HttpVersion.HTTP_1_1.asString()),
-                new HttpConnectionFactory(ssl_config));
-        sslConnector.setPort(Port);
-        server.addConnector(sslConnector);*/
-        return true;
-	}
 	
-	public static boolean initializeDataBase(DBService database) {
-		return true;
-	}
 	
 
 }
