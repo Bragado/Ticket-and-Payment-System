@@ -1,4 +1,4 @@
-package cmov.miguellucas.com.customerapp;
+/*package cmov.miguellucas.com.customerapp;
 
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
@@ -19,8 +19,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //qrCodeImageview = findViewById(R.id.img_qr_code);
-        //generate();
+        qrCodeImageview = findViewById(R.id.img_qr_code);
+        generate();
     }
 
     void generate() {
@@ -86,4 +86,4 @@ public class MainActivity extends AppCompatActivity {
         bitmap.setPixels(pixels, 0, w, 0, 0, w, h);
         return bitmap;
     }
-}
+}*/
