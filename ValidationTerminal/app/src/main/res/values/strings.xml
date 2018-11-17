@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">ValidationTerminal</string>
+    <string name="app_name">Validation Terminal</string>
+    <string name="btn_validate">Validate Ticket</string>
+    <string name="btn_go_back">Go Back</string>
+    <string name="validation_activity_title">Validation Result</string>
+    <string name="ticket_valid">Valid ticket</string>
+    <string name="ticket_invalid">Invalid ticket</string>
 </resources>

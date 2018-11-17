@@ -8,14 +8,10 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import java.util.HashMap;
 import java.util.Map;
-
-import logic.Cafeteria;
 import logic.Order;
 import logic.Product;
 
