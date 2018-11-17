@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import logic.Cafeteria;
 import logic.Order;
+import logic.Voucher;
 
 public class MainActivity extends AppCompatActivity {
     public final static String ID_EXTRA = "org.proj1.cafeteriaTerminal.orderList";
@@ -32,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void btnReadOrderClick(View v) {
         scanOrder();
-        //Toast.makeText(this,"Clicked read order",Toast.LENGTH_SHORT).show();
     }
 
     public void btnOrderListClick(View v) {
@@ -98,6 +98,14 @@ public class MainActivity extends AppCompatActivity {
         order5.addProduct(Cafeteria.getInstance().getProducts().get(2));
         Order order6 = new Order(6,1);
         order6.addProduct(Cafeteria.getInstance().getProducts().get(2));
+
+        Voucher voucher1 = new Voucher(1, 2);
+        Voucher voucher2 = new Voucher(2, 15);
+        Voucher voucher3 = new Voucher(3, 10);
+
+        order1.setVoucher1(voucher1);
+        order1.setVoucher2(voucher2);
+        order3.setVoucher1(voucher3);
 
         Cafeteria.getInstance().addOrder(order1);
         Cafeteria.getInstance().addOrder(order2);

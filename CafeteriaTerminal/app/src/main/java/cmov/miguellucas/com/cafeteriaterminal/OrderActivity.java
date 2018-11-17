@@ -83,10 +83,11 @@ public class OrderActivity extends AppCompatActivity {
 
         //add one row per product
         LinearLayout linear = (LinearLayout)findViewById(R.id.order_items_list);
+        LayoutInflater inflater = LayoutInflater.from(this);
         for(Map.Entry<Product, Integer> entry : order.getProducts().entrySet()) {
 
             //fetch the row to add to the list
-            LayoutInflater inflater = LayoutInflater.from(this);
+            //LayoutInflater inflater = LayoutInflater.from(this);
             LinearLayout row = (LinearLayout) inflater.inflate(R.layout.order_row, null, false);
 
             //set product name
@@ -102,6 +103,27 @@ public class OrderActivity extends AppCompatActivity {
             priceText.setText((entry.getValue() * entry.getKey().getPrice()) + " €");
 
             //add the row to the list
+            linear.addView(row);
+        }
+
+        //add 1st voucher
+        if (order.getVoucher1() != null){
+
+            LinearLayout row = (LinearLayout) inflater.inflate(R.layout.order_row, null, false);
+            TextView voucherText = row.findViewById(R.id.order);
+            voucherText.setText("Voucher #" + order.getVoucher1().getId());
+            TextView voucherDiscountText = row.findViewById(R.id.price_total);
+            voucherDiscountText.setText("- " + order.getVoucher1().getDiscount() + " €");
+            linear.addView(row);
+        }
+
+        //add 2nd voucher
+        if (order.getVoucher2() != null){
+            LinearLayout row = (LinearLayout) inflater.inflate(R.layout.order_row, null, false);
+            TextView voucherText = row.findViewById(R.id.order);
+            voucherText.setText("Voucher #" + order.getVoucher2().getId());
+            TextView voucherDiscountText = row.findViewById(R.id.price_total);
+            voucherDiscountText.setText("- " + order.getVoucher2().getDiscount() + " €");
             linear.addView(row);
         }
 
