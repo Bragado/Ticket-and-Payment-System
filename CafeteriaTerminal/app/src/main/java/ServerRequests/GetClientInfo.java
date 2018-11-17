@@ -2,60 +2,63 @@ package ServerRequests;
 
 import android.util.Log;
 
+import org.json.JSONObject;
+
 import java.io.DataOutputStream;
+import java.io.ObjectInputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
-public class GetClientInfo implements Runnable{
-    String user_id
-    public final String path = "/register";
+import logic.Customer;
 
-    public Register (String name, String username, String password,
-                     int NIF, String publicKey, String address) {
-        this.name = name;
-        this.username = username;
-        this.password = password;
-        this.NIF = NIF;
-        this.publicKey = publicKey;
-        this.address = address+path;
+public class GetClientInfo implements Runnable{
+    private String user_id;
+    private final String path = "/clientInfo";
+
+    private Customer customer;
+
+    public GetClientInfo (String user_id) {
+        this.user_id = user_id;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
 
-
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
     @Override
     public void run() {
         URL url;
         HttpURLConnection urlConnection = null;
         try{
-            url = new URL("http://" + address + ":8701/Rest/users");
-            Log.d("REGISTER","POST " + url.toExternalForm());
+            url = new URL(ServerUtils.server_path + path + "?userID=" + user_id);
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setDoOutput(true);
             urlConnection.setDoInput(true);
-            urlConnection.setRequestMethod("POST");
+            urlConnection.setRequestMethod("GET");
             urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            String parameters = constructMessage();
-            if(parameters.equals("")) {
-                Log.d("REGISTER","ERROR IN REGISTER!!");
-            }
-            DataOutputStream outputStream = new DataOutputStream(urlConnection.getOutputStream());
-            outputStream.writeBytes(parameters);
-            outputStream.flush();
-            outputStream.close();
 
             // get response
             int responseCode = urlConnection.getResponseCode();
             if(responseCode == 200) {
-                String response = ServerOps.readStream(urlConnection.getInputStream());
-                Log.d("REGISTER ANS" , response);
+                String response = ServerUtils.readStream(urlConnection.getInputStream());
+                Customer customer = ServerUtils.parseCustomer(response);
+                if (customer != null){
+                    this.customer = customer;
+                    Log.d("clientinfo" , response);
+                    Log.d("clientinfo", customer.getName());
+                } else {
+                    Log.d("clientinfo" , "ERROR " + response);
+                }
 
+            } else {
+                Log.d("clientinfo" , "" + responseCode);
             }
-
-
         }catch (Exception e) {
-
+            e.printStackTrace();
         }
         finally {
             if(urlConnection != null)
@@ -66,15 +69,11 @@ public class GetClientInfo implements Runnable{
     private String constructMessage() {
 
         HashMap<String, String> parameters = new HashMap<>();
-        parameters.put("username", username);
-        parameters.put("password", password);
-        parameters.put("name", name);
-        parameters.put("nif", NIF + "");
-        parameters.put("publicKey", publicKey);
+        parameters.put("user_id", user_id);
 
         String s = null;
         try {
-            s = ServerOps.getDataString(parameters);
+            s = ServerUtils.getDataString(parameters);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             return "";

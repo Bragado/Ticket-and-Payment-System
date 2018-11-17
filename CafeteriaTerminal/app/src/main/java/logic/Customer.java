@@ -1,19 +1,13 @@
 package logic;
 
-/**
- * Created by Miguel Lucas on 22/10/2018.
- */
+import java.io.Serializable;
 
-public class Customer {
-    private static int next_id = 1;
-    private final int id;
+public class Customer implements Serializable {
+    private int id;
     private String name;
     private String nif;
-    private CreditCard creditCard;
 
     public Customer(String name, String nif) {
-        id = next_id;
-        next_id++;
         setName(name);
         setNif(nif);
     }
@@ -38,11 +32,4 @@ public class Customer {
         this.nif = nif;
     }
 
-    public CreditCard getCreditCard() {
-        return creditCard;
-    }
-
-    public void setCreditCard(CreditCard creditCard) {
-        this.creditCard = creditCard;
-    }
 }

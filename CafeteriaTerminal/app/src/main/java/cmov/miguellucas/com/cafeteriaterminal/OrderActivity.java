@@ -12,12 +12,15 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import java.util.Map;
+
+import logic.Customer;
 import logic.Order;
 import logic.Product;
 
 public class OrderActivity extends AppCompatActivity {
 
     private Order order;
+    private Customer customer;
     private ToggleButton btnOrderStatus;
 
     @Override
@@ -26,7 +29,8 @@ public class OrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order);
         setTitle(R.string.title_order_activity);
 
-        order = (Order) getIntent().getSerializableExtra(OrderListActivity.ID_EXTRA);
+        order = (Order) getIntent().getSerializableExtra(OrderListActivity.ID_EXTRA_ORDER);
+        customer = (Customer) getIntent().getSerializableExtra(OrderListActivity.ID_EXTRA_CUSTOMER);
 
         buildLayout();
 
@@ -49,7 +53,7 @@ public class OrderActivity extends AppCompatActivity {
     @Override
     public void finish() {
         Intent i = new Intent();
-        i.putExtra(OrderListActivity.ID_EXTRA, order);
+        i.putExtra(OrderListActivity.ID_EXTRA_ORDER, order);
         setResult(RESULT_OK, i);
 
         super.finish();
@@ -127,13 +131,13 @@ public class OrderActivity extends AppCompatActivity {
         TextView totalText = findViewById(R.id.order_total);
         totalText.setText(String.format(getString(R.string.order_price), order.getPrice()));
 
-        //set client info - TODO
+        //set client info
         TextView clientNameText = this.findViewById(R.id.order_client_name);
-        clientNameText.setText("Miguel Lucas");
+        clientNameText.setText(customer.getName());
 
-        //set client nif - TODO
+        //set client nif
         TextView clientNifText = this.findViewById(R.id.order_client_nif);
-        clientNifText.setText("123456789");
+        clientNifText.setText(customer.getNif());
     }
 
     public void goBackClick(View v){
