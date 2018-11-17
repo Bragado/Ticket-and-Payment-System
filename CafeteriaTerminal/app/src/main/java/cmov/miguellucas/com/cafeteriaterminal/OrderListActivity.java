@@ -26,6 +26,7 @@ public class OrderListActivity extends AppCompatActivity implements ListView.OnI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_list);
+        setTitle(R.string.title_order_list_activity);
 
         ListView list = findViewById(R.id.order_list);
         orderAdapter = new OrderAdapter();
@@ -107,8 +108,6 @@ public class OrderListActivity extends AppCompatActivity implements ListView.OnI
         }
 
         private void refreshOrders() {
-            //this.clear();
-            //this.addAll(Cafeteria.getInstance().getOrders());
             notifyDataSetChanged();
         }
     }

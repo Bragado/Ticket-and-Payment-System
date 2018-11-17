@@ -24,7 +24,7 @@ public class OrderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
-        setTitle("Order Details");
+        setTitle(R.string.title_order_activity);
 
         order = (Order) getIntent().getSerializableExtra(OrderListActivity.ID_EXTRA);
 
@@ -75,7 +75,7 @@ public class OrderActivity extends AppCompatActivity {
     private void buildLayout(){
         //set order id
         TextView idText = findViewById(R.id.order_id);
-        idText.setText("Order #" + order.getId());
+        idText.setText(String.format(getString(R.string.order_number), order.getId()));
 
         //add one row per product
         LinearLayout linear = (LinearLayout)findViewById(R.id.order_items_list);
@@ -92,11 +92,11 @@ public class OrderActivity extends AppCompatActivity {
 
             //set price detail
             TextView priceTextDetail = row.findViewById(R.id.price_detail);
-            priceTextDetail.setText(entry.getValue() + " x " + entry.getKey().getPrice() + " €");
+            priceTextDetail.setText(String.format(getString(R.string.order_price_detail), entry.getValue(), entry.getKey().getPrice()));
 
             //set price total
             TextView priceText = row.findViewById(R.id.price_total);
-            priceText.setText((entry.getValue() * entry.getKey().getPrice()) + " €");
+            priceText.setText(String.format(getString(R.string.order_price), entry.getValue() * entry.getKey().getPrice()));
 
             //add the row to the list
             linear.addView(row);
@@ -107,9 +107,9 @@ public class OrderActivity extends AppCompatActivity {
 
             LinearLayout row = (LinearLayout) inflater.inflate(R.layout.order_row, null, false);
             TextView voucherText = row.findViewById(R.id.order);
-            voucherText.setText("Voucher #" + order.getVoucher1().getId());
+            voucherText.setText(String.format(getString(R.string.voucher_number), order.getVoucher1().getId()));
             TextView voucherDiscountText = row.findViewById(R.id.price_total);
-            voucherDiscountText.setText("- " + order.getVoucher1().getDiscount() + " €");
+            voucherDiscountText.setText(String.format(getString(R.string.voucher_price), order.getVoucher1().getDiscount()));
             linear.addView(row);
         }
 
@@ -117,15 +117,15 @@ public class OrderActivity extends AppCompatActivity {
         if (order.getVoucher2() != null){
             LinearLayout row = (LinearLayout) inflater.inflate(R.layout.order_row, null, false);
             TextView voucherText = row.findViewById(R.id.order);
-            voucherText.setText("Voucher #" + order.getVoucher2().getId());
+            voucherText.setText(String.format(getString(R.string.voucher_number), order.getVoucher2().getId()));
             TextView voucherDiscountText = row.findViewById(R.id.price_total);
-            voucherDiscountText.setText("- " + order.getVoucher2().getDiscount() + " €");
+            voucherDiscountText.setText(String.format(getString(R.string.voucher_price), order.getVoucher2().getDiscount()));
             linear.addView(row);
         }
 
         //add total price
         TextView totalText = findViewById(R.id.order_total);
-        totalText.setText(order.getPrice() + " €");
+        totalText.setText(String.format(getString(R.string.order_price), order.getPrice()));
 
         //set client info - TODO
         TextView clientNameText = this.findViewById(R.id.order_client_name);

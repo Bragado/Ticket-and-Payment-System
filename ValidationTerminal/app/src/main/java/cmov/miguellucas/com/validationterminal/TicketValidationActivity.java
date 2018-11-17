@@ -45,7 +45,7 @@ public class TicketValidationActivity extends AppCompatActivity {
 
             //write ticket number
             TextView idText = row.findViewById(R.id.ticket_id);
-            idText.setText("Ticket #" + (i+1));
+            idText.setText(String.format(getString(R.string.ticket_number), (i+1)));
 
             linearLayout.addView(row, linearLayout.getChildCount() - 1);
         }
