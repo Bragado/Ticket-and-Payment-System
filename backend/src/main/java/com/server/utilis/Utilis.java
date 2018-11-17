@@ -1,10 +1,24 @@
 package com.server.utilis;
-
+ 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
+
+ 
+import javax.servlet.http.Part;
+
+ 
 
 public class Utilis {
+	
+	/* Global Variables*/
+	public static SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+	
 	
 	/*			TABLES				*/
 	public static final String COSTUMER_TABLE = "Costumer";
@@ -17,7 +31,7 @@ public class Utilis {
 	public static final String VOUCHER_TABLE = "Voucher";
 	public static final String VOUCHERMANAGER_TABLE = "VoucherManager";
 	
-	/*			/TABLES				*/
+	 
 	
 	/*			RESERVED WORDS		*/
 	public static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
@@ -44,6 +58,52 @@ public class Utilis {
 
         return null;
     }
+	
+	public static String getImgFolder() {
+		String currentpath = System.getProperty("user.dir") + "/Images";
+		File file = new File(currentpath);
+		if (!file.exists()) {
+	        if (file.mkdir()) {
+	            System.out.println("directory created successfully");
+	        } else {
+	            System.out.println("directory is not created");
+	        }
+	    }
+		
+		
+		return currentpath;
+	}
+
+	public static String saveImage(Part file) throws IOException {
+		// TODO Auto-generated method stub
+		String filename = UUID.randomUUID().toString();
+		file.write(Utilis.getImgFolder() + "/" + filename  );
+		return filename;
+	}
+
+	public static String[] getRandomPlaces(int  amount) {
+		
+		String[] places = new String[amount];
+		
+		for(int i = 0; i < amount; i++) {
+			int number = (int) (Math.random() * 50 + 1);
+			places[i] = "" + number;
+		}
+		
+		
+		return places;
+		
+	}
+	
+	public static java.sql.Date getCurrentDate() {
+		Date date = new Date();
+		return new java.sql.Date(date.getTime());
+	}
+	
+	public static void removeElement(Object[] arr, int removedIdx) {
+	    System.arraycopy(arr, removedIdx + 1, arr, removedIdx, arr.length - 1 - removedIdx);
+	}
+  
 	
 	/*			/Functions			*/
 }
