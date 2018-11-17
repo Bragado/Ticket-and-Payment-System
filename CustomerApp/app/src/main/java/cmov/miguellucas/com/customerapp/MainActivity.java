@@ -19,8 +19,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        qrCodeImageview = findViewById(R.id.img_qr_code);
-        generate();
+        //qrCodeImageview = findViewById(R.id.img_qr_code);
+        //generate();
     }
 
     void generate() {
