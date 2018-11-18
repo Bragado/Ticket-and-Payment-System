@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">CustomerApp</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="login_preference">cmov.miguellucas.com.customerapp</string>
+    <string name="login_status_preferences">cmov.miguellucas.com.customerapp</string>
+    <string name="login_private_key_preferences">cmov.miguellucas.com.privatekey</string>
+    <string name="login_private_UUID_preferences">cmov.miguellucas.com.UUID</string>
+
 </resources>

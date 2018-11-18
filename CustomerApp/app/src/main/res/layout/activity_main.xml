@@ -13,14 +13,15 @@
         android:layout_height="match_parent">
 
         <!-- top toolbar -->
-        <RelativeLayout
+     <!--   <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/relLayout1"
+
             >
             <include layout="@layout/layout_top_tabs"></include>
 
-        </RelativeLayout>
+        </RelativeLayout>-->
 
 
         <!-- Middle section -->
@@ -28,9 +29,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/relLayout2"
-            android:layout_below="@+id/relLayout1"
+
             >
-            <include layout="@layout/layout_center_viewpager"></include>
+<!-- android:layout_below="@+id/relLayout1" -->
 
         </RelativeLayout>
 

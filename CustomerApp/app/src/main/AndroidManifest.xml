@@ -21,7 +21,7 @@
         <activity android:name=".Ticket.TicketActivity" />
         <activity android:name=".Cafeteria.CafeteriaActivity" />
         <activity android:name=".Transactions.TransactionsActivity" />
-     <!--   <activity android:name=".RegisterActivity"></activity> -->
+       <activity android:name=".Register.RegisterActivity"></activity>
     </application>
 
 </manifest>
