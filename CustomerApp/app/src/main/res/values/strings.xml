@@ -9,4 +9,9 @@
     <string name="soda">Soda</string>
     <string name="popcorn">Popcorn</string>
     <string name="sandwich">Sandwich</string>
+    <string name="voucher">Voucher</string>
+    <string name="voucher_coffee">Free Coffee</string>
+    <string name="voucher_popcorn">Free Popcorn</string>
+    <string name="voucher_discount">5% Discount</string>
+    <string name="voucher_number">x %1$d</string>
 </resources>
