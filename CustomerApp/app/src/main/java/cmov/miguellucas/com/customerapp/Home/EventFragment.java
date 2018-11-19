@@ -80,8 +80,7 @@ public class EventFragment extends Fragment {
 
         initPage();
 
-
-
+        
         return view;
     }
 
