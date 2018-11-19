@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -39,9 +40,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void btnValidateClick(View v){
-        //scanOrder();
-        validateTicketsRequest();
-        //startResultActivity();
+        scanOrder();
     }
 
     public void scanOrder() {
@@ -74,19 +73,24 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == SCAN_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 String contents = data.getStringExtra("SCAN_RESULT");
-                String format = data.getStringExtra("SCAN_RESULT_FORMAT");
 
-                //TODO: parse data read from qr
-                Toast.makeText(this,"Format: " + format + "\nMessage: " + contents, Toast.LENGTH_SHORT).show();
+                String[] parameters = contents.split("&");
+                int index = parameters[0].indexOf("=");
+                String ticketId = parameters[0].substring(index+1);
+
+                index = parameters[1].indexOf("=");
+                String userId = parameters[1].substring(index+1);
+
+                Ticket ticket = new Ticket(ticketId, userId);
+                tickets.add(ticket);
+
+                Toast.makeText(this,getString(R.string.tickets_validated), Toast.LENGTH_SHORT).show();
                 validateTicketsRequest();
             }
         }
     }
 
     public void validateTicketsRequest(){
-        Ticket ticket1 = new Ticket("64054635-ca28-4045-a4f5-3e91b099ecc1", "7614d302-b79c-4591-9e35-af3a5caf1717", "22");
-
-        tickets.add(ticket1);
         int ticketsVerified = 0;
 
         for (Ticket ticket:tickets) {
