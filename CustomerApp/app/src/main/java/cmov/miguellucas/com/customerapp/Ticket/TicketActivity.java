@@ -13,7 +13,7 @@ import cmov.miguellucas.com.customerapp.R;
 import cmov.miguellucas.com.customerapp.Utils.BottomNavigationViewHelper;
 import cmov.miguellucas.com.customerapp.Utils.TicketsAdapter;
 
-public class TicketActivity extends AppCompatActivity implements TicketsAdapter.GenerateQRCodeForTicket {
+public class TicketActivity extends AppCompatActivity implements TicketsAdapter.GenerateQRCodeForTicket, TicketValidationFragment.BackToTicketList {
 
     private static final int ACTIVITY_NUM = 2;
     @Override
@@ -43,7 +43,17 @@ public class TicketActivity extends AppCompatActivity implements TicketsAdapter.
     @Override
     public void generateQR(Ticket ticket) {
         Log.e("TICKET ACTIVITY", "User wants to generate qr code");
-        getSupportFragmentManager().beginTransaction().replace(R.id.relLayout2, new TicketValidationFragment(), null).addToBackStack(null).commit();
+        TicketValidationFragment ticketValidationFragment = new TicketValidationFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("ticket", ticket);
+        ticketValidationFragment.setArguments(bundle);
 
+        getSupportFragmentManager().beginTransaction().replace(R.id.relLayout2, ticketValidationFragment, null).addToBackStack(null).commit();
+
+    }
+
+    @Override
+    public void done() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.relLayout2, new TicketListFragment(), null).commit();
     }
 }

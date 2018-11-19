@@ -17,11 +17,13 @@ public class TicketsAdapter extends RecyclerView.Adapter<TicketsAdapter.MyViewHo
     ArrayList<Ticket> tickets;
     Context context;
     GenerateQRCodeForTicket generateQRCode;
-
-    public TicketsAdapter(Context context, ArrayList<Ticket> tickets) {
+    boolean displayQr;
+    public TicketsAdapter(Context context, ArrayList<Ticket> tickets, boolean displayQr) {
         this.context = context;
         this.tickets = tickets;
-        generateQRCode = (GenerateQRCodeForTicket)context;
+        if(displayQr)
+            generateQRCode = (GenerateQRCodeForTicket)context;
+        this.displayQr = displayQr;
     }
 
     @Override
@@ -36,7 +38,7 @@ public class TicketsAdapter extends RecyclerView.Adapter<TicketsAdapter.MyViewHo
     public void onBindViewHolder(TicketsAdapter.MyViewHolder holder, final int position) {
         holder.title.setText(tickets.get(position).eventTitle);
         holder.date.setText(tickets.get(position).date);
-
+        if(displayQr)
         holder.title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

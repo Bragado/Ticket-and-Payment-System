@@ -59,11 +59,14 @@ public class HomeFragment extends Fragment implements GetEvents.ListEventsOP {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Log.e("HOME FRAG" , "number of events: " + events.size());
-
+            try{
                 mAdapter = new PostsAdapter(events, getActivity());
                 recyclerView.setAdapter(mAdapter);
                 Log.e("HOME FRAG" , "number of events: " + events.size());
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+
             }
 
         });

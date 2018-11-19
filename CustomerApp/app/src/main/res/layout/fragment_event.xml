@@ -18,68 +18,110 @@
         android:focusable="true" android:focusableInTouchMode="true"
         >
 
-        <TextView
+
+
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/post"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:id="@+id/title"
-            android:textSize="20dp"
-            android:text="Sample titlte"
-            android:padding="12dp"
-            />
-
-        <ImageView
-            android:id="@+id/photo"
-            android:scaleType="centerCrop"
-            android:layout_width="0dp"
-            android:layout_height="300dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title"
-            />
-
-        <TextView
-            app:layout_constraintTop_toBottomOf="@+id/photo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/description"
-            android:text="This is the event descriptiojn"
-            android:padding="12dp"
-            />
-
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:text="Date: 7-Jun-2018"
+            android:layout_margin="12dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/description" />
-        <TextView
-            app:layout_constraintTop_toBottomOf="@+id/date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/capacity"
-            android:text="Capacity: 2000"
-            android:padding="12dp"
-            />
-        <TextView
-            app:layout_constraintTop_toBottomOf="@+id/capacity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/ticket_price"
-            android:text="Ticket Price: 500"
-            android:padding="12dp"
-            />
+            app:layout_constraintTop_toTopOf="parent">
 
+            <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:text="Sample titlte"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/photo"
+                    android:layout_width="0dp"
+                    android:layout_height="300dp"
+
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="8dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/title" />
+
+
+
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:padding="12dp"
+                    android:text="This is the event descriptiojn"
+                    app:layout_constraintTop_toBottomOf="@+id/photo" />
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:text="Date: 7-Jun-2018"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/description" />
+                <TextView
+                    app:layout_constraintTop_toBottomOf="@+id/date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/capacity"
+                    android:text="Capacity: 2000"
+                    android:padding="12dp"
+                    />
+                <TextView
+                    app:layout_constraintTop_toBottomOf="@+id/capacity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ticket_price"
+                    android:text="Ticket Price: 500"
+                    android:padding="12dp"
+                    />
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="32dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+
+        </android.support.v7.widget.CardView>
 
 
         <EditText
             android:id="@+id/nTickets"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/ticket_price"
+            app:layout_constraintTop_toBottomOf="@+id/post"
             android:layout_marginStart="24dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="24dp"
@@ -103,19 +145,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/nTickets" />
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="64dp"
-            android:layout_marginTop="64dp"
-            android:layout_marginEnd="64dp"
-            android:layout_marginBottom="64dp"
-            app:layout_constraintBottom_toBottomOf="@+id/ticket_price"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/title" />
 
     </android.support.constraint.ConstraintLayout>
 

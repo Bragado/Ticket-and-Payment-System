@@ -15,4 +15,5 @@
     <string name="order_price">%1$.2f €</string>
     <string name="voucher_number">Voucher #%1$d</string>
     <string name="voucher_price">- %1$.2f €</string>
+    <string name="order_received">Order Received!</string>
 </resources>

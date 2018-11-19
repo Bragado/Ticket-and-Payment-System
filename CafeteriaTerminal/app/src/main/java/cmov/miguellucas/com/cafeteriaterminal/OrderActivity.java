@@ -111,9 +111,9 @@ public class OrderActivity extends AppCompatActivity {
 
             LinearLayout row = (LinearLayout) inflater.inflate(R.layout.order_row, null, false);
             TextView voucherText = row.findViewById(R.id.order);
-            voucherText.setText(String.format(getString(R.string.voucher_number), order.getVoucher1().getId()));
+            voucherText.setText(String.format(getString(R.string.voucher_number), 1));
             TextView voucherDiscountText = row.findViewById(R.id.price_total);
-            voucherDiscountText.setText(String.format(getString(R.string.voucher_price), order.getVoucher1().getDiscount()));
+            voucherDiscountText.setText(String.format(getString(R.string.voucher_price), order.getVoucher1Discount()));
             linear.addView(row);
         }
 
@@ -121,9 +121,9 @@ public class OrderActivity extends AppCompatActivity {
         if (order.getVoucher2() != null){
             LinearLayout row = (LinearLayout) inflater.inflate(R.layout.order_row, null, false);
             TextView voucherText = row.findViewById(R.id.order);
-            voucherText.setText(String.format(getString(R.string.voucher_number), order.getVoucher2().getId()));
+            voucherText.setText(String.format(getString(R.string.voucher_number), 2));
             TextView voucherDiscountText = row.findViewById(R.id.price_total);
-            voucherDiscountText.setText(String.format(getString(R.string.voucher_price), order.getVoucher2().getDiscount()));
+            voucherDiscountText.setText(String.format(getString(R.string.voucher_price), order.getVoucher2Discount()));
             linear.addView(row);
         }
 

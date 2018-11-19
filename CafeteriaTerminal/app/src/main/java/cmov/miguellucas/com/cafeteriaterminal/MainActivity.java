@@ -8,9 +8,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import ServerRequests.CreateOrder;
+import ServerRequests.ServerUtils;
 import logic.Cafeteria;
 import logic.Order;
 import logic.Voucher;
@@ -24,8 +27,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //Cafeteria.getInstance().startCafeteria();
 
         //for testing purposes
         dummyData();
@@ -72,14 +73,32 @@ public class MainActivity extends AppCompatActivity {
                 String contents = data.getStringExtra("SCAN_RESULT");
                 String format = data.getStringExtra("SCAN_RESULT_FORMAT");
 
-                //TODO: parse data read from qr
+                Order order = ServerUtils.parseOrderFromQR(contents);
+                sendOrderRequest(order);
                 Toast.makeText(this,"Format: " + format + "\nMessage: " + contents, Toast.LENGTH_SHORT).show();
             }
         }
     }
 
+    public void sendOrderRequest(Order order){
+        Log.d("order", order.toJson().toString());
+        CreateOrder createOrder = new CreateOrder(order);
+        Thread thread = new Thread(createOrder);
+        thread.start();
+        try {
+            thread.join();
+
+
+            Toast.makeText(this, getString(R.string.order_received), Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this, OrderListActivity.class);
+            startActivity(i);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void dummyData(){
-        Order order1 = new Order(1,1);
+        /*Order order1 = new Order(1,1);
         order1.addProduct(Cafeteria.getInstance().getProducts().get(0));
         Order order2 = new Order(2,2);
         order2.addProduct(Cafeteria.getInstance().getProducts().get(1));
@@ -99,11 +118,11 @@ public class MainActivity extends AppCompatActivity {
         Order order6 = new Order(6,1);
         order6.addProduct(Cafeteria.getInstance().getProducts().get(2));
 
-        Voucher voucher1 = new Voucher(1, 2);
+        /*Voucher voucher1 = new Voucher(1, 2);
         Voucher voucher2 = new Voucher(2, 15);
-        Voucher voucher3 = new Voucher(3, 10);
+        Voucher voucher3 = new Voucher(3, 10);*/
 
-        order1.setVoucher1(voucher1);
+        /*order1.setVoucher1(voucher1);
         order1.setVoucher2(voucher2);
         order3.setVoucher1(voucher3);
 
@@ -112,6 +131,6 @@ public class MainActivity extends AppCompatActivity {
         Cafeteria.getInstance().addOrder(order3);
         Cafeteria.getInstance().addOrder(order4);
         Cafeteria.getInstance().addOrder(order5);
-        Cafeteria.getInstance().addOrder(order6);
+        Cafeteria.getInstance().addOrder(order6);*/
     }
 }
