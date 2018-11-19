@@ -72,7 +72,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:inputType="number"
                 android:hint="NIF"
                 android:id="@+id/input_nif"/>
 
@@ -107,6 +107,8 @@
         android:textSize="20sp"
         android:layout_alignBottom="@+id/progressBar"
         android:layout_alignRight="@+id/progressBar"
-        android:layout_alignLeft="@+id/progressBar"/>
+        android:layout_alignLeft="@+id/progressBar"
+        android:id="@+id/wait_text"
+        />
 
 </RelativeLayout>

@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">CustomerApp</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login_preference">cmov.miguellucas.com.customerapp</string>
+    <string name="login_status_preferences">cmov.miguellucas.com.customerapp</string>
+    <string name="login_private_key_preferences">cmov.miguellucas.com.privatekey</string>
+    <string name="login_private_UUID_preferences">cmov.miguellucas.com.UUID</string>
     <string name="btn_create_order">Create Order</string>
     <string name="btn_add_to_order">Add to Order</string>
     <string name="coffee">Coffee</string>
@@ -14,4 +17,8 @@
     <string name="voucher_popcorn">Free Popcorn</string>
     <string name="voucher_discount">5% Discount</string>
     <string name="voucher_number">x %1$d</string>
+    <string name="coffe_price">0.60€</string>
+    <string name="soda_price">1.20€</string>
+    <string name="popcorn_price">2.50€</string>
+    <string name="sandwish_price">3.0€</string>
 </resources>

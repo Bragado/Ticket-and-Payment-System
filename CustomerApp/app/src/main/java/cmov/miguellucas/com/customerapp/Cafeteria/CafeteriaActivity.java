@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,10 +14,12 @@ import android.widget.TextView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
+import org.json.JSONObject;
+
 import cmov.miguellucas.com.customerapp.R;
 import cmov.miguellucas.com.customerapp.Utils.BottomNavigationViewHelper;
 
-public class CafeteriaActivity extends AppCompatActivity {
+public class CafeteriaActivity extends AppCompatActivity implements CafeteriaFragment.GenerateQrCode {
 
     private static final int ACTIVITY_NUM = 1;
     @Override
@@ -42,4 +45,15 @@ public class CafeteriaActivity extends AppCompatActivity {
         Menu menu = bottomNavigationViewEx.getMenu();
         MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
         menuItem.setChecked(true);    }
+
+    @Override
+    public void generate(JSONObject jsonObject) {
+        CafeteriaQrCode cafeteriaFragment = new CafeteriaQrCode();
+        Bundle bundle = new Bundle();
+        bundle.putString("data", jsonObject.toString());
+        cafeteriaFragment.setArguments(bundle);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.relLayout2, cafeteriaFragment, null).addToBackStack(null).commit();
+
+    }
 }
