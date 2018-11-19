@@ -1,6 +1,7 @@
 package cmov.miguellucas.com.customerapp.Ticket;
 
 
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -45,6 +46,12 @@ public class TicketListFragment extends Fragment {
         recyclerView.setAdapter(mAdapter);
 
         return view;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        address = getResources().getString(R.string.address);
     }
 
     private ArrayList<Ticket> getTicketsInLocalDB() {

@@ -56,6 +56,7 @@ public class RegisterActivity extends AppCompatActivity implements Register.Regi
          init();
 
         Log.d(TAG, "onCreate: started.");
+        address = getResources().getString(R.string.address);
     }
 
     private void init() {

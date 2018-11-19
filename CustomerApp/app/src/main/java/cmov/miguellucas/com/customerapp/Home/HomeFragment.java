@@ -51,8 +51,11 @@ public class HomeFragment extends Fragment implements GetEvents.ListEventsOP {
         return view;
     }
 
-
-
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        address = getResources().getString(R.string.address);
+    }
 
     @Override
     public void done(final ArrayList<Event> events) {

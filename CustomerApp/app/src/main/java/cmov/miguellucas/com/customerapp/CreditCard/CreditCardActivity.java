@@ -69,6 +69,8 @@ public class CreditCardActivity extends AppCompatActivity implements AddCreditCa
                 }
             }
         });
+
+        address = getResources().getString(R.string.address);
     }
 
     @Override

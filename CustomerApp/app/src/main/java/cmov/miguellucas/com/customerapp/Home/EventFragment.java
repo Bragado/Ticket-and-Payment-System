@@ -1,6 +1,7 @@
 package cmov.miguellucas.com.customerapp.Home;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -80,8 +81,14 @@ public class EventFragment extends Fragment {
 
         initPage();
 
-        
+
         return view;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        address = getResources().getString(R.string.address);
     }
 
     private void initPage() {

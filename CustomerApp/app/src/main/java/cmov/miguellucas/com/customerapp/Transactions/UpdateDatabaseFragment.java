@@ -71,6 +71,12 @@ public class UpdateDatabaseFragment extends Fragment implements GetTransactions.
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        getResources().getString(R.string.address);
+    }
+
+    @Override
     public void done() {
         getActivity().runOnUiThread(new Runnable() {
             @Override
