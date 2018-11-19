@@ -1,5 +1,8 @@
 package ServerRequests;
 
+import android.util.Log;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -13,6 +16,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import logic.Customer;
+import logic.Order;
+import logic.Product;
+import logic.Voucher;
 
 public class ServerUtils {
     public static final String server_path = "http://10.0.2.2:7074";
@@ -73,6 +79,48 @@ public class ServerUtils {
         try {
             JSONObject jsonObject = new JSONObject(order);
             return jsonObject;
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static Order parseOrderFromQR(String json){
+        try{
+            Order order = new Order(1);
+
+            JSONObject jo = new JSONObject(json);
+            String userId = jo.getString("userID");
+            String signedUserId = jo.getString("signedUserID");
+            JSONArray products = jo.getJSONArray("products");
+            JSONArray vouchers = jo.getJSONArray("vouchers");
+
+            for (int i=0;i < products.length(); i++){
+                JSONObject product = products.getJSONObject(i);
+                int type = product.getInt("type");
+                int quantity = product.getInt("quantity");
+                Product newProduct = new Product(type);
+                for (int j=0; j<quantity;j++){
+                    order.addProduct(newProduct);
+                }
+            }
+
+            for (int i=0;i < vouchers.length(); i++){
+                String voucher = vouchers.getString(i);
+                Voucher newVoucher = new Voucher(voucher,0);
+                if (order.getVoucher1() == null){
+                    order.setVoucher1(newVoucher);
+                } else {
+                    order.setVoucher2(newVoucher);
+                }
+            }
+
+            order.setUserId(userId);
+            order.setSignedUserId(signedUserId);
+
+            return order;
+
         } catch (JSONException e){
             e.printStackTrace();
         }

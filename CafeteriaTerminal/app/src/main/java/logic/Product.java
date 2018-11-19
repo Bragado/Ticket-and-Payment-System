@@ -13,9 +13,8 @@ public class Product implements Serializable {
     private double price;
     private int sales;
 
-    public Product(int id, double price){
+    public Product(int id){
         this.id = id;
-        this.price = price;
         this.sales = 0;
 
         switch (id){

@@ -17,14 +17,14 @@ public class Order implements Serializable{
     private int id;
     private HashMap<Product, Integer> products;
     private double price;
-    private String client_id;
+    private String userId;
+    private String signedUserId;
     private boolean orderServed;
     private Voucher voucher1;
     private Voucher voucher2;
 
-    public Order(int id, String client_id){
+    public Order(int id){
         this.id = id;
-        this.client_id = client_id;
         products = new HashMap<>();
         setOrderServed(false);
         voucher1 = null;
@@ -59,14 +59,6 @@ public class Order implements Serializable{
         this.price = price;
     }
 
-    public String getClient_id() {
-        return client_id;
-    }
-
-    public void setClient_id(String client_id) {
-        this.client_id = client_id;
-    }
-
     public boolean getOrderServed() {
         return orderServed;
     }
@@ -89,6 +81,22 @@ public class Order implements Serializable{
 
     public void setVoucher2(Voucher voucher2) {
         this.voucher2 = voucher2;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getSignedUserId() {
+        return signedUserId;
+    }
+
+    public void setSignedUserId(String signedUserId) {
+        this.signedUserId = signedUserId;
     }
 
     public void addProduct(Product product) {
@@ -167,8 +175,8 @@ public class Order implements Serializable{
     public JSONObject toJson(){
         try {
             JSONObject jo = new JSONObject();
-            jo.put("userID", client_id);
-            jo.put("signedUserID", "signedUserID");
+            jo.put("userID", userId);
+            jo.put("signedUserID", signedUserId);
             JSONArray products = new JSONArray();
             for (Map.Entry<Product, Integer> entry: this.products.entrySet()) {
                 JSONObject newProduct = new JSONObject();

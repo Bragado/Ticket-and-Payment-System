@@ -8,13 +8,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import ServerRequests.CreateOrder;
-import ServerRequests.GetClientInfo;
+import ServerRequests.ServerUtils;
 import logic.Cafeteria;
-import logic.Customer;
 import logic.Order;
 import logic.Voucher;
 
@@ -28,15 +28,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Cafeteria.getInstance().startCafeteria();
-
         //for testing purposes
         dummyData();
     }
 
     public void btnReadOrderClick(View v) {
-        sendOrderRequest();
-        //scanOrder();
+        scanOrder();
     }
 
     public void btnOrderListClick(View v) {
@@ -76,26 +73,21 @@ public class MainActivity extends AppCompatActivity {
                 String contents = data.getStringExtra("SCAN_RESULT");
                 String format = data.getStringExtra("SCAN_RESULT_FORMAT");
 
-                //TODO: parse data read from qr
-                sendOrderRequest();
+                Order order = ServerUtils.parseOrderFromQR(contents);
+                sendOrderRequest(order);
                 Toast.makeText(this,"Format: " + format + "\nMessage: " + contents, Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    public void sendOrderRequest(){
-        //TODO receive order
-        Order order1 = new Order(1,"223c7154-095f-42a6-ac49-f2f2d964b69f");
-        order1.addProduct(Cafeteria.getInstance().getProducts().get(0));
-        order1.addProduct(Cafeteria.getInstance().getProducts().get(0));
-        order1.addProduct(Cafeteria.getInstance().getProducts().get(1));
-        Voucher voucher = new Voucher("c8a7bc99-c7f5-4fce-b5aa-f00096a33313", Voucher.FREE_COFFEE);
-        order1.setVoucher1(voucher);
-        CreateOrder createOrder = new CreateOrder(order1);
+    public void sendOrderRequest(Order order){
+        Log.d("order", order.toJson().toString());
+        CreateOrder createOrder = new CreateOrder(order);
         Thread thread = new Thread(createOrder);
         thread.start();
         try {
             thread.join();
+
 
             Toast.makeText(this, getString(R.string.order_received), Toast.LENGTH_SHORT).show();
             Intent i = new Intent(this, OrderListActivity.class);
