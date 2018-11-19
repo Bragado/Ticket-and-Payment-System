@@ -1,6 +1,8 @@
 package cmov.miguellucas.com.customerapp.ServerOperations;
 
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
@@ -12,12 +14,16 @@ import java.io.DataOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import cmov.miguellucas.com.customerapp.Models.Ticket;
 import cmov.miguellucas.com.customerapp.Models.Voucher;
 import cmov.miguellucas.com.customerapp.Utils.ServerOps;
+import cmov.miguellucas.com.customerapp.Utils.SharedPreferenceConfig;
 
 public class BuyTickets implements Runnable {
 
@@ -37,6 +43,7 @@ public class BuyTickets implements Runnable {
 
 
     }
+
 
     @Override
     public void run() {
@@ -132,13 +139,32 @@ public class BuyTickets implements Runnable {
     }
 
 
+
     private String constructMessage() {
+
+        SharedPreferenceConfig sharedPreferenceConfig = new SharedPreferenceConfig(context);
+        PrivateKey privateKey = null;
+        String signature = "";
+        try {
+            privateKey = sharedPreferenceConfig.getPrivateKey();
+            //signature = ServerOps.sign(userId + "&" + eventID + "&" + amount, privateKey); TODO
+
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         HashMap<String, String> parameters = new HashMap<>();
         parameters.put("userID", userId);
         parameters.put("eventID", ""+eventID);
         parameters.put("amount", ""+amount);
 
+
+
+        parameters.put("signature", signature);
         String s = null;
         try {
             s = ServerOps.getDataString(parameters);

@@ -80,6 +80,9 @@ public class RegisterActivity extends AppCompatActivity implements Register.Regi
                         keyPair = ServerOps.GenerateKeys();
                         privateKey = (PrivateKey) ServerOps.getPrivateKey(keyPair);
                         publicKey = ServerOps.getPublicKey(keyPair);
+                        SharedPreferenceConfig sharedPreferenceConfig = new SharedPreferenceConfig(context);
+                        sharedPreferenceConfig.savePrivateKey(privateKey);
+
                     } catch (NoSuchAlgorithmException e) {
                         e.printStackTrace();
                     }

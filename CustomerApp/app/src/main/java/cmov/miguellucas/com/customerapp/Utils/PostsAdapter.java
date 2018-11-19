@@ -59,13 +59,13 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
             }
         });
 
-        Log.e("Photoname: ", ""+ events.get(position).photoName);
     }
 
     @Override
     public int getItemCount() {
-        Log.e("PostsAdapter", "The size of this thing is " + events.size());
-        return events.size();
+        if(events != null)
+            return events.size();
+        return 0;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

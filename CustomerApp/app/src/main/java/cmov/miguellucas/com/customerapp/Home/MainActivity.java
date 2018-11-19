@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements PostsAdapter.SeeT
 
                 for (int i = 0; i < tickets.size(); i++) {
                     ticket = tickets.get(i);
-                    contactDbHelper.AddTicket(db, ticket.ID, ticket.Place, ticket.eventTitle, ticket.date);
+                    contactDbHelper.AddTicket(db, ticket.ID, ticket.Place, ticket.eventTitle, ticket.date, 0);
                 }
 
                 Voucher voucher;

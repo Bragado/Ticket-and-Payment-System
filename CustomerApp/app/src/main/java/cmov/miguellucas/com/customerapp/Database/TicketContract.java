@@ -20,6 +20,13 @@ public final class TicketContract {
             public static final String VOUCHER_DESCRIPTION = "DESCRIPTION";
             public static final String VOUCHER_TYPE = "TYPE";
 
+
+            public static final String TABLE_ORDER = "ORDERT";
+            public static final String TABLE_PRODUCTS = "PRODUCTSORDER";
+            /* Table order */
+
+
+
     }
 
 }

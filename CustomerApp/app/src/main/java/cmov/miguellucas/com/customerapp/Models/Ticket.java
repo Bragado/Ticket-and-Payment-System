@@ -1,6 +1,8 @@
 package cmov.miguellucas.com.customerapp.Models;
 
-public class Ticket {
+import java.io.Serializable;
+
+public class Ticket implements Serializable {
     public String ID;
     public int Place;
     public String eventTitle;
