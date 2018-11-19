@@ -48,14 +48,30 @@ public class SharedPreferenceConfig {
           return kf.generatePrivate(ks);
     }
 
+    public void writeCreditCardStatus(boolean value)
+    {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(context.getResources().getString(R.string.credit_card_preference), value);
+        editor.commit();
+    }
 
-      public boolean readLogin()
+
+    public boolean readLogin()
       {
             boolean status = false;
 
             status = sharedPreferences.getBoolean(context.getResources().getString(R.string.login_status_preferences), false);
 
             return status;
+      }
+
+      public boolean readCreditCard()
+      {
+          boolean status = false;
+
+          status = sharedPreferences.getBoolean(context.getResources().getString(R.string.credit_card_preference), false);
+
+          return status;
       }
 
       public String readUUID() {

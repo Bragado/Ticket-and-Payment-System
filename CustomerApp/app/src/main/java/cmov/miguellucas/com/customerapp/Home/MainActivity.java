@@ -14,6 +14,7 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.util.ArrayList;
 
+import cmov.miguellucas.com.customerapp.CreditCard.CreditCardActivity;
 import cmov.miguellucas.com.customerapp.Database.TicketDbHelper;
 import cmov.miguellucas.com.customerapp.Models.Event;
 import cmov.miguellucas.com.customerapp.Models.Ticket;
@@ -67,6 +68,15 @@ public class MainActivity extends AppCompatActivity implements PostsAdapter.SeeT
     @Override
     public void openTicket(Event e) {
         Log.e("Main Activity", "User Clicked to see ticket with id = " + e.ID);
+
+        sharedPreferenceConfig =  new SharedPreferenceConfig(getApplicationContext());
+        if(!sharedPreferenceConfig.readCreditCard()) {
+            startActivity(new Intent(this, CreditCardActivity.class));
+            finish();
+            return;
+        }
+
+
         EventFragment eventFragment = new EventFragment();
         Bundle bundle = new Bundle();
 

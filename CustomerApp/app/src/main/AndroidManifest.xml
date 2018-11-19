@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cmov.miguellucas.com.customerapp">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -21,7 +21,8 @@
         <activity android:name=".Ticket.TicketActivity" />
         <activity android:name=".Cafeteria.CafeteriaActivity" />
         <activity android:name=".Transactions.TransactionsActivity" />
-       <activity android:name=".Register.RegisterActivity"></activity>
+        <activity android:name=".Register.RegisterActivity" />
+        <activity android:name=".CreditCard.CreditCardActivity"></activity>
     </application>
 
 </manifest>

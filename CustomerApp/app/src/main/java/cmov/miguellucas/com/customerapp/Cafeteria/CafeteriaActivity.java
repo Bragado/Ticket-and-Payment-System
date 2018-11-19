@@ -16,8 +16,10 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import org.json.JSONObject;
 
+import cmov.miguellucas.com.customerapp.CreditCard.CreditCardActivity;
 import cmov.miguellucas.com.customerapp.R;
 import cmov.miguellucas.com.customerapp.Utils.BottomNavigationViewHelper;
+import cmov.miguellucas.com.customerapp.Utils.SharedPreferenceConfig;
 
 public class CafeteriaActivity extends AppCompatActivity implements CafeteriaFragment.GenerateQrCode {
 
@@ -48,6 +50,15 @@ public class CafeteriaActivity extends AppCompatActivity implements CafeteriaFra
 
     @Override
     public void generate(JSONObject jsonObject) {
+        SharedPreferenceConfig sharedPreferenceConfig =  new SharedPreferenceConfig(getApplicationContext());
+        if(!sharedPreferenceConfig.readCreditCard()) {
+            startActivity(new Intent(this, CreditCardActivity.class));
+            finish();
+            return;
+        }
+
+
+
         CafeteriaQrCode cafeteriaFragment = new CafeteriaQrCode();
         Bundle bundle = new Bundle();
         bundle.putString("data", jsonObject.toString());

@@ -80,7 +80,8 @@ public class EventFragment extends Fragment {
 
         initPage();
 
-
+        SharedPreferenceConfig sharedPreferenceConfig = new SharedPreferenceConfig(getContext());
+        sharedPreferenceConfig.writeCreditCardStatus(false);
 
         return view;
     }
