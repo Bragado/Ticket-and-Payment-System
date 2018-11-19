@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,6 +22,10 @@ public class CafeteriaFragment extends Fragment {
 
     private int voucher1 = VOUCHER_NONE;
     private int voucher2 = VOUCHER_NONE;
+    private int nCoffees = 0;
+    private int nPopcorns = 0;
+    private int nSodas = 0;
+    private int nSandwichs = 0;
 
     public CafeteriaFragment() {
         // Required empty public constructor
@@ -36,6 +41,9 @@ public class CafeteriaFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        //TODO
+        //show number of available vouchers
+        //show price of products
         TextView coffeeNumberText = getView().findViewById(R.id.voucher_coffee_number);
         coffeeNumberText.setText(String.format(getString(R.string.voucher_number), 3));
         TextView popcornNumberText = getView().findViewById(R.id.voucher_popcorn_number);
@@ -51,7 +59,13 @@ public class CafeteriaFragment extends Fragment {
         LinearLayout coffeeLayout = getView().findViewById(R.id.layout_coffee);
         LinearLayout popcornLayout = getView().findViewById(R.id.layout_popcorn);
         LinearLayout discountLayout = getView().findViewById(R.id.layout_discount);
-        //set click listeners to voucher layouts
+        Button btnCreateOrder = getView().findViewById(R.id.btn_create_order);
+        Button btnAddCoffee = getView().findViewById(R.id.btn_add_coffee);
+        Button btnAddSoda = getView().findViewById(R.id.btn_add_soda);
+        Button btnAddSandwich = getView().findViewById(R.id.btn_add_sandwich);
+        Button btnAddPopcorn = getView().findViewById(R.id.btn_add_popcorn);
+
+        //set click listeners to voucher layouts and buttons
         coffeeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,6 +84,41 @@ public class CafeteriaFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 selectVoucher(VOUCHER_DISCOUNT);
+            }
+        });
+
+        btnCreateOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                generateOrder();
+            }
+        });
+
+        btnAddCoffee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addCoffee();
+            }
+        });
+
+        btnAddPopcorn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addPopcorn();
+            }
+        });
+
+        btnAddSandwich.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addSandwich();
+            }
+        });
+
+        btnAddSoda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addSoda();
             }
         });
     }
@@ -129,7 +178,32 @@ public class CafeteriaFragment extends Fragment {
         }
     }
 
-    public void generateOrder(View v){
+    public void generateOrder(){
+        //TODO
+        //generate QR code to send order
+    }
 
+    public void addCoffee(){
+        nCoffees++;
+        TextView nCoffeeText = getView().findViewById(R.id.order_coffee_number);
+        nCoffeeText.setText(String.format(getString(R.string.voucher_number), nCoffees));
+    }
+
+    public void addSoda(){
+        nSodas++;
+        TextView nSodaText = getView().findViewById(R.id.order_soda_number);
+        nSodaText.setText(String.format(getString(R.string.voucher_number), nSodas));
+    }
+
+    public void addSandwich(){
+        nSandwichs++;
+        TextView nSandwichText = getView().findViewById(R.id.order_sandwich_number);
+        nSandwichText.setText(String.format(getString(R.string.voucher_number), nSandwichs));
+    }
+
+    public void addPopcorn(){
+        nPopcorns++;
+        TextView nPopcornText = getView().findViewById(R.id.order_popcorn_number);
+        nPopcornText.setText(String.format(getString(R.string.voucher_number), nPopcorns));
     }
 }

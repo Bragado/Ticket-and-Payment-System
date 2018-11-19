@@ -39,11 +39,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="x 3"
+            android:text="x 0"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <Button
+            android:id="@+id/btn_add_coffee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|bottom"
@@ -83,11 +84,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="x 3"
+            android:text="x 0"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <Button
+            android:id="@+id/btn_add_soda"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|bottom"
@@ -127,11 +129,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="x 3"
+            android:text="x 0"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <Button
+            android:id="@+id/btn_add_popcorn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|bottom"
@@ -171,15 +174,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="x 3"
+            android:text="x 0"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <Button
+            android:id="@+id/btn_add_sandwich"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|bottom"
-            android:text="@string/btn_add_to_order" />
+            android:text="@string/btn_add_to_order"
+            android:onClick="addSandwich"/>
     </LinearLayout>
 
     <LinearLayout
@@ -202,28 +207,12 @@
             android:focusable="true"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/img_coffee_selected"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/circle_green"
-                    android:visibility="invisible" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/voucher"
-                    android:textSize="12sp" />
-
-            </LinearLayout>
-
-
+            <ImageView
+                android:id="@+id/img_coffee_selected"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/circle_green"
+                android:visibility="invisible" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -271,13 +260,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/voucher"
-                android:textSize="12sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:text="@string/voucher_popcorn"
                 android:textSize="18sp" />
 
@@ -318,13 +300,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/voucher"
-                android:textSize="12sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:text="@string/voucher_discount"
                 android:textSize="18sp" />
 
@@ -353,9 +328,8 @@
         android:layout_row="3"
         android:text="@string/btn_create_order"
         android:layout_columnSpan="2"
-        android:layout_gravity="center"
+        android:layout_gravity="top|center"
         android:width="250dp"
-        android:layout_rowWeight="0.4"
-        android:onClick="generateOrder"/>
+        android:layout_rowWeight="0.4" />
 
 </GridLayout>
