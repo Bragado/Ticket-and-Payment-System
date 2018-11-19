@@ -20,6 +20,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.Signature;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +28,8 @@ import java.util.Map;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class ServerOps {
+
+    public static SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 
     public static String getDataString(HashMap<String, String> params) throws UnsupportedEncodingException, UnsupportedEncodingException {
         StringBuilder result = new StringBuilder();

@@ -19,6 +19,7 @@ import cmov.miguellucas.com.customerapp.Home.HomeFragment;
 import cmov.miguellucas.com.customerapp.Home.MainActivity;
 import cmov.miguellucas.com.customerapp.R;
 import cmov.miguellucas.com.customerapp.ServerOperations.AddCreditCard;
+import cmov.miguellucas.com.customerapp.Utils.ServerOps;
 import cmov.miguellucas.com.customerapp.Utils.SharedPreferenceConfig;
 
 public class CreditCardActivity extends AppCompatActivity implements AddCreditCard.CreditCardOP {
@@ -53,8 +54,8 @@ public class CreditCardActivity extends AppCompatActivity implements AddCreditCa
             public void onClick(View view) {
                 if (cardForm.isValid()) {
                     String cardN =  "" + cardForm.getCardNumber();
-                    String date =  new Date().toString();
-
+                    Date d =  new Date();
+                    String date = ServerOps.formatter.format(d).toString();
                     int CCC =  Integer.parseInt(cardForm.getCvv()) ;
                     SharedPreferenceConfig sharedPreferenceConfig = new SharedPreferenceConfig(context);
                     String uuid = sharedPreferenceConfig.readUUID();
