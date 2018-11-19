@@ -1,12 +1,20 @@
 <resources>
     <string name="app_name">CustomerApp</string>
 
-
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
     <string name="login_preference">cmov.miguellucas.com.customerapp</string>
     <string name="login_status_preferences">cmov.miguellucas.com.customerapp</string>
     <string name="login_private_key_preferences">cmov.miguellucas.com.privatekey</string>
     <string name="login_private_UUID_preferences">cmov.miguellucas.com.UUID</string>
-
+    <string name="btn_create_order">Create Order</string>
+    <string name="btn_add_to_order">Add to Order</string>
+    <string name="coffee">Coffee</string>
+    <string name="soda">Soda</string>
+    <string name="popcorn">Popcorn</string>
+    <string name="sandwich">Sandwich</string>
+    <string name="voucher">Voucher</string>
+    <string name="voucher_coffee">Free Coffee</string>
+    <string name="voucher_popcorn">Free Popcorn</string>
+    <string name="voucher_discount">5% Discount</string>
+    <string name="voucher_number">x %1$d</string>
 </resources>

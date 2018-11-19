@@ -13,19 +13,19 @@ import android.widget.Toast;
 
 import logic.Cafeteria;
 import logic.Order;
+import logic.Voucher;
 
 public class MainActivity extends AppCompatActivity {
     public final static String ID_EXTRA = "org.proj1.cafeteriaTerminal.orderList";
     static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
-    private Cafeteria cafeteria;
+    private final static int SCAN_REQUEST_CODE = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        cafeteria = new Cafeteria();
-        cafeteria.startCafeteria();
+        //Cafeteria.getInstance().startCafeteria();
 
         //for testing purposes
         dummyData();
@@ -33,12 +33,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void btnReadOrderClick(View v) {
         scanOrder();
-        //Toast.makeText(this,"Clicked read order",Toast.LENGTH_SHORT).show();
     }
 
     public void btnOrderListClick(View v) {
         Intent i = new Intent(this, OrderListActivity.class);
-        i.putExtra(ID_EXTRA, cafeteria);
         startActivity(i);
     }
 
@@ -46,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             Intent intent = new Intent(ACTION_SCAN);
             intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-            startActivityForResult(intent, 0);
+            startActivityForResult(intent, SCAN_REQUEST_CODE);
         }
         catch (ActivityNotFoundException anfe) {
             showDialog(this, "No Scanner Found", "Download a scanner code activity?", "Yes", "No").show();
@@ -69,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 0) {
+        if (requestCode == SCAN_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 String contents = data.getStringExtra("SCAN_RESULT");
                 String format = data.getStringExtra("SCAN_RESULT_FORMAT");
@@ -81,31 +79,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void dummyData(){
-        Order order1 = new Order(1);
-        order1.addProduct(cafeteria.getProducts().get(0));
-        Order order2 = new Order(2);
-        order2.addProduct(cafeteria.getProducts().get(1));
-        order2.addProduct(cafeteria.getProducts().get(1));
+        Order order1 = new Order(1,1);
+        order1.addProduct(Cafeteria.getInstance().getProducts().get(0));
+        Order order2 = new Order(2,2);
+        order2.addProduct(Cafeteria.getInstance().getProducts().get(1));
+        order2.addProduct(Cafeteria.getInstance().getProducts().get(1));
         order2.setOrderServed(true);
-        Order order3 = new Order(2);
-        order3.addProduct(cafeteria.getProducts().get(0));
-        order3.addProduct(cafeteria.getProducts().get(1));
-        order3.addProduct(cafeteria.getProducts().get(2));
-        order3.addProduct(cafeteria.getProducts().get(2));
-        order3.addProduct(cafeteria.getProducts().get(3));
-        Order order4 = new Order(1);
-        order4.addProduct(cafeteria.getProducts().get(3));
-        Order order5 = new Order(1);
-        order5.addProduct(cafeteria.getProducts().get(3));
-        order5.addProduct(cafeteria.getProducts().get(2));
-        Order order6 = new Order(1);
-        order6.addProduct(cafeteria.getProducts().get(2));
+        Order order3 = new Order(3,2);
+        order3.addProduct(Cafeteria.getInstance().getProducts().get(0));
+        order3.addProduct(Cafeteria.getInstance().getProducts().get(1));
+        order3.addProduct(Cafeteria.getInstance().getProducts().get(2));
+        order3.addProduct(Cafeteria.getInstance().getProducts().get(2));
+        order3.addProduct(Cafeteria.getInstance().getProducts().get(3));
+        Order order4 = new Order(4,1);
+        order4.addProduct(Cafeteria.getInstance().getProducts().get(3));
+        Order order5 = new Order(5,1);
+        order5.addProduct(Cafeteria.getInstance().getProducts().get(3));
+        order5.addProduct(Cafeteria.getInstance().getProducts().get(2));
+        Order order6 = new Order(6,1);
+        order6.addProduct(Cafeteria.getInstance().getProducts().get(2));
 
-        cafeteria.addOrder(order1);
-        cafeteria.addOrder(order2);
-        cafeteria.addOrder(order3);
-        cafeteria.addOrder(order4);
-        cafeteria.addOrder(order5);
-        cafeteria.addOrder(order6);
+        Voucher voucher1 = new Voucher(1, 2);
+        Voucher voucher2 = new Voucher(2, 15);
+        Voucher voucher3 = new Voucher(3, 10);
+
+        order1.setVoucher1(voucher1);
+        order1.setVoucher2(voucher2);
+        order3.setVoucher1(voucher3);
+
+        Cafeteria.getInstance().addOrder(order1);
+        Cafeteria.getInstance().addOrder(order2);
+        Cafeteria.getInstance().addOrder(order3);
+        Cafeteria.getInstance().addOrder(order4);
+        Cafeteria.getInstance().addOrder(order5);
+        Cafeteria.getInstance().addOrder(order6);
     }
 }

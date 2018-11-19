@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CafeteriaTerminal</string>
+    <string name="app_name">Cafeteria Terminal</string>
     <string name="btn_order_list">Order List</string>
     <string name="btn_read_order">Read Order</string>
     <string name="order_client_info_title">Client Information</string>
@@ -7,4 +7,12 @@
     <string name="order_served">The order is served</string>
     <string name="order_not_served">The order is NOT served</string>
     <string name="btn_order_status">Serve</string>
+    <string name="btn_go_back">Go Back</string>
+    <string name="title_order_activity">Order Details</string>
+    <string name="title_order_list_activity">Order List</string>
+    <string name="order_number">Order #%1$d</string>
+    <string name="order_price_detail">%1$d x %2$.2f €</string>
+    <string name="order_price">%1$.2f €</string>
+    <string name="voucher_number">Voucher #%1$d</string>
+    <string name="voucher_price">- %1$.2f €</string>
 </resources>

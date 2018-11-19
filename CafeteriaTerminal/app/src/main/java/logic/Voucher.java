@@ -1,18 +1,16 @@
 package logic;
 
-/**
- * Created by Miguel Lucas on 22/10/2018.
- */
+import java.io.Serializable;
 
-public class Voucher {
+public class Voucher implements Serializable {
     private static int next_id = 1;
     private final int id;
     private float discount;
     private int client_id;
     private VoucherStatus voucherStatus;
 
-    public Voucher(float discount) {
-        id = next_id;
+    public Voucher(int id, float discount) {
+        this.id = id;
         next_id++;
         setDiscount(discount);
         setVoucherStatus(VoucherStatus.AVAILABLE);

@@ -13,24 +13,27 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import ServerRequests.GetClientInfo;
 import logic.Cafeteria;
+import logic.Customer;
 import logic.Order;
 
 public class OrderListActivity extends AppCompatActivity implements ListView.OnItemClickListener {
-    public final static String ID_EXTRA = "org.proj1.cafeteriaTerminal.order";
-    private Cafeteria cafeteria;
+    public final static String ID_EXTRA_ORDER = "org.proj1.cafeteriaTerminal.order";
+    public final static String ID_EXTRA_CUSTOMER = "org.proj1.cafeteriaTerminal.customer";
+    private final static int ORDER_REQUEST_CODE = 0;
+    private OrderAdapter orderAdapter;
+    private String DEBUG_TAG = "CMOV_MIGUEL";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_list);
-
-        cafeteria = (Cafeteria) getIntent().getSerializableExtra(MainActivity.ID_EXTRA);
+        setTitle(R.string.title_order_list_activity);
 
         ListView list = findViewById(R.id.order_list);
-        OrderAdapter orderAdapter = new OrderAdapter();
+        orderAdapter = new OrderAdapter();
 
         list.setAdapter(orderAdapter);
         list.setOnItemClickListener(this);
@@ -38,15 +41,43 @@ public class OrderListActivity extends AppCompatActivity implements ListView.OnI
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int pos, long id) {
-        //Toast.makeText(this, "dsfaf", Toast.LENGTH_SHORT).show();
-        Intent i = new Intent(this, OrderActivity.class);
-        i.putExtra(ID_EXTRA, cafeteria.getOrders().get(pos));
-        startActivityForResult(i);
+        GetClientInfo getClientInfo = new GetClientInfo("7614d302-b79c-4591-9e35-af3a5caf1717");
+        Thread thread = new Thread(getClientInfo);
+        thread.start();
+        try {
+            thread.join();
+
+            //get customer from request
+            Customer customer = getClientInfo.getCustomer();
+
+            Intent i = new Intent(this, OrderActivity.class);
+            i.putExtra(ID_EXTRA_ORDER, Cafeteria.getInstance().getOrders().get(pos));
+            i.putExtra(ID_EXTRA_CUSTOMER, customer);
+            startActivityForResult(i, ORDER_REQUEST_CODE);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ORDER_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Order order = (Order) data.getSerializableExtra(ID_EXTRA_ORDER);
+                int orderPos = Cafeteria.getInstance().getOrders().indexOf(order);
+                Cafeteria.getInstance().getOrders().set(orderPos, order);
+            }
+        }
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        orderAdapter.refreshOrders();
     }
 
     class OrderAdapter extends ArrayAdapter<Order> {
         OrderAdapter() {
-            super(OrderListActivity.this, R.layout.order_row, cafeteria.getOrders());
+            super(OrderListActivity.this, R.layout.list_order_row, Cafeteria.getInstance().getOrders());
         }
 
         @Override
@@ -55,14 +86,15 @@ public class OrderListActivity extends AppCompatActivity implements ListView.OnI
             View row = convertView;
             if (row == null) {
                 LayoutInflater inflater = getLayoutInflater();
-                row = inflater.inflate(R.layout.order_row, parent, false);    // get our custom layout
+                row = inflater.inflate(R.layout.list_order_row, parent, false);    // get our custom layout
             }
-            Order order = cafeteria.getOrders().get(position);
+            Order order = Cafeteria.getInstance().getOrders().get(position);
 
-            if (order.getOrderServed())
-                row.findViewById(R.id.order_row).setBackgroundResource(R.drawable.border_right_green);
-            else
-                row.findViewById(R.id.order_row).setBackgroundResource(R.drawable.border_right_red);
+            if (order.getOrderServed()) {
+                row.findViewById(R.id.list_order_row).setBackgroundResource(R.drawable.border_right_green);
+            } else {
+                row.findViewById(R.id.list_order_row).setBackgroundResource(R.drawable.border_right_red);
+            }
 
             ((TextView)row.findViewById(R.id.order)).setText(order.toString());
 
@@ -90,6 +122,10 @@ public class OrderListActivity extends AppCompatActivity implements ListView.OnI
             }
 
             return (row);
+        }
+
+        private void refreshOrders() {
+            notifyDataSetChanged();
         }
     }
 }
