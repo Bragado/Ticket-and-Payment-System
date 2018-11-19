@@ -68,4 +68,15 @@ public class ServerUtils {
 
         return null;
     }
+
+    public static JSONObject parseOrder(String order){
+        try {
+            JSONObject jsonObject = new JSONObject(order);
+            return jsonObject;
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

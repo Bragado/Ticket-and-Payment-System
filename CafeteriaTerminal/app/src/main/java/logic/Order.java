@@ -1,7 +1,14 @@
 package logic;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Order implements Serializable{
 
@@ -9,13 +16,13 @@ public class Order implements Serializable{
     //product - number of items ordered
     private int id;
     private HashMap<Product, Integer> products;
-    private float price;
-    private int client_id;
+    private double price;
+    private String client_id;
     private boolean orderServed;
     private Voucher voucher1;
     private Voucher voucher2;
 
-    public Order(int id, int client_id){
+    public Order(int id, String client_id){
         this.id = id;
         this.client_id = client_id;
         products = new HashMap<>();
@@ -44,19 +51,19 @@ public class Order implements Serializable{
         this.products = products;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public int getClient_id() {
+    public String getClient_id() {
         return client_id;
     }
 
-    public void setClient_id(int client_id) {
+    public void setClient_id(String client_id) {
         this.client_id = client_id;
     }
 
@@ -155,5 +162,78 @@ public class Order implements Serializable{
         Order otherOrder = (Order) other;
 
         return otherOrder.getId() == this.getId();
+    }
+
+    public JSONObject toJson(){
+        try {
+            JSONObject jo = new JSONObject();
+            jo.put("userID", client_id);
+            jo.put("signedUserID", "signedUserID");
+            JSONArray products = new JSONArray();
+            for (Map.Entry<Product, Integer> entry: this.products.entrySet()) {
+                JSONObject newProduct = new JSONObject();
+                newProduct.put("type", entry.getKey().getId());
+                newProduct.put("quantity", entry.getValue());
+                products.put(newProduct);
+            }
+            JSONArray vouchers = new JSONArray();
+            if (voucher1 != null)
+                vouchers.put(voucher1.getId());
+            if (voucher2 != null)
+                vouchers.put(voucher2.getId());
+            jo.put("products", products);
+            jo.put("vouchers", vouchers);
+            return jo;
+
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public void checkVouchers(ArrayList<String> vouchers){
+        for (String voucher:vouchers) {
+            switch (voucher){
+                case "Free Coffe":
+                    voucher1.checkVoucherStatus(Voucher.FREE_COFFEE);
+                    voucher2.checkVoucherStatus(Voucher.FREE_COFFEE);
+                    break;
+                case "Free Popcorn":
+                    voucher1.checkVoucherStatus(Voucher.FREE_POPCORN);
+                    voucher2.checkVoucherStatus(Voucher.FREE_POPCORN);
+                    break;
+            }
+        }
+    }
+
+    public double getVoucher1Discount(){
+        switch (voucher1.getType()){
+            case Voucher.FREE_COFFEE:
+                return Cafeteria.getInstance().getProducts().get(Product.COFFEE).getPrice();
+            case Voucher.FREE_POPCORN:
+                return Cafeteria.getInstance().getProducts().get(Product.POPCORN).getPrice();
+            case Voucher.DISCOUNT:
+                DecimalFormat df = new DecimalFormat("#.##");
+                Double discount = Double.valueOf(df.format(price*0.05));
+                return discount;
+        }
+
+        return 0;
+    }
+
+    public double getVoucher2Discount(){
+        switch (voucher2.getType()){
+            case Voucher.FREE_COFFEE:
+                return Cafeteria.getInstance().getProducts().get(Product.COFFEE).getPrice();
+            case Voucher.FREE_POPCORN:
+                return Cafeteria.getInstance().getProducts().get(Product.POPCORN).getPrice();
+            case Voucher.DISCOUNT:
+                DecimalFormat df = new DecimalFormat("#.##");
+                Double discount = Double.valueOf(df.format(price*0.05));
+                return discount;
+        }
+
+        return 0;
     }
 }

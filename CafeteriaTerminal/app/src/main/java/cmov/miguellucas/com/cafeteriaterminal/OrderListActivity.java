@@ -98,7 +98,7 @@ public class OrderListActivity extends AppCompatActivity implements ListView.OnI
 
             ((TextView)row.findViewById(R.id.order)).setText(order.toString());
 
-            String price = Float.toString(order.getPrice()) + " €";
+            String price = Double.toString(order.getPrice()) + " €";
             ((TextView)row.findViewById(R.id.price)).setText(price);
 
             ImageView icon = row.findViewById(R.id.icon);

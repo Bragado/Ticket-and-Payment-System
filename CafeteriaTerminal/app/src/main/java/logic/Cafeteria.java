@@ -37,10 +37,10 @@ public class Cafeteria implements Serializable {
     }
 
     public void startCafeteria() {
-        Product coffee = new Product("Coffee", 0.75);
-        Product soda = new Product("Soda", 1.5);
-        Product popcorn = new Product("Popcorn", 3);
-        Product sandwich = new Product("Sandwich", 2.5);
+        Product coffee = new Product(Product.COFFEE, 0.75);
+        Product soda = new Product(Product.SODA, 1.5);
+        Product popcorn = new Product(Product.POPCORN, 3);
+        Product sandwich = new Product(Product.SANDWICH, 2.5);
 
         products.add(coffee);
         products.add(soda);

@@ -91,9 +91,10 @@ public class ValidateVoucherNOrder extends HttpServlet{
 					String[] vs = database.getVouchersName(vouchersAccepted);
 					for(int i = 0; i < vs.length; i++)
 						vouchersA.put(vs[i]);
-					
+
+					System.out.println("voucher size: " + vouchersAccepted.length);
 				}
-				System.out.println("voucher size: " + vouchersAccepted.length);
+
 				PrintWriter out = resp.getWriter();
 				JSONObject obj = new JSONObject();
 	            obj.put("price", price);

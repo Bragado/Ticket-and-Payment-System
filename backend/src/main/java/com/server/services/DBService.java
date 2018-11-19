@@ -237,12 +237,14 @@ public class DBService extends DBHelper implements ServerService {
 		Voucher[]  allowedVouchers = null;
 		if(vouchers != null) {
 			requestedVouchers = super.getVouchers(userID, vouchers);
-			System.out.println("Requested Vouchers: " + requestedVouchers.length);
+			if (requestedVouchers != null)
+				System.out.println("Requested Vouchers: " + requestedVouchers.length);
 			allowedVouchers = verifyVouchers(requestedVouchers);
 		}
 		//System.out.println("Allowed Vouchers: " + allowedVouchers.length);
-		
-		System.out.println("voucher size: " + allowedVouchers.length);
+
+		if (allowedVouchers != null)
+			System.out.println("voucher size: " + allowedVouchers.length);
 		
 		int IdOrder = -1;
 		
@@ -259,8 +261,9 @@ public class DBService extends DBHelper implements ServerService {
 		if(allowedVouchers != null)
 			super.registerUsedVouchers(userID, allowedVouchers);
 		super.updateFinalPrice(IdOrder, price);
-		
-		System.out.println("voucher size: " + allowedVouchers.length);
+
+		if (allowedVouchers != null)
+			System.out.println("voucher size: " + allowedVouchers.length);
 		return new CafeteriaOrderAnswer(price, allowedVouchers);
 	}
 	
@@ -333,17 +336,18 @@ public class DBService extends DBHelper implements ServerService {
 
 
 	private Voucher[] verifyVouchers(Voucher[] vouchers) {
-		if(vouchers.length < 2)
-			return vouchers;
-		
-		if(vouchers.length == 2 && vouchers[0].TYPE == 0 && vouchers[1].TYPE == 0) {
-			Voucher[] v = new Voucher[1];
-			v[0] = vouchers[0];
-			return v;
+		if (vouchers != null){
+			if(vouchers.length < 2)
+				return vouchers;
+
+			if(vouchers.length == 2 && vouchers[0].TYPE == 0 && vouchers[1].TYPE == 0) {
+				Voucher[] v = new Voucher[1];
+				v[0] = vouchers[0];
+				return v;
+			}
 		}
-		
+
 		return vouchers;
-		
 	}
 
 
