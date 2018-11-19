@@ -19,6 +19,13 @@ public class Ticket implements Serializable {
         status = NOT_VERIFIED;
     }
 
+    public Ticket(String id, String userId){
+        this.id = id;
+        this.userId = userId;
+        this.eventId = "22";
+        status = NOT_VERIFIED;
+    }
+
     public String getId() {
         return id;
     }
