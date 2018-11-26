@@ -10,7 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ServerUtils {
-    public static final String server_path = "http://10.0.2.2:7074";
+    //public static final String server_path = "http://10.0.2.2:7074";
+    public static final String server_path = "http://fathomless-wave-15587.herokuapp.com";
 
     public static String getDataString(HashMap<String, String> params) throws UnsupportedEncodingException, UnsupportedEncodingException {
         StringBuilder result = new StringBuilder();
